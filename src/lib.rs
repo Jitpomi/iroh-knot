@@ -331,7 +331,7 @@ impl IrohKnotClientJoinBuilder {
             _endpoint: Some(endpoint),
         };
 
-        IrohKnotClient::connect_internal(
+        IrohKnotClient::tie_the_knot(
             wrapped,
             self.knot_id,
             self.rope_id,
