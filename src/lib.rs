@@ -311,6 +311,10 @@ impl IrohKnotClientJoinBuilder {
         self
     }
 
+    pub async fn tie(self) -> Result<IrohKnotClient> {
+        self.connect().await
+    }
+
     pub async fn connect(self) -> Result<IrohKnotClient> {
         let endpoint = match self.endpoint {
             Some(ep) => ep,
