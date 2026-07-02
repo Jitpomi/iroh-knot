@@ -61,7 +61,7 @@ async fn main() -> anyhow::Result<()> {
     let client = IrohKnotClientJoinBuilder::join(ticket)
         .knot("home-hub")
         .rope_id("living-room-sensor")
-        .connect()
+        .tie()
         .await?;
 
     println!("Joined connection: {}", client.connection_id());

@@ -50,7 +50,7 @@ async fn test_end_to_end_handshake_and_streaming() -> anyhow::Result<()> {
     let client = IrohKnotClientJoinBuilder::join(&ticket)
         .knot("living-room")
         .rope_id("temperature-sensor")
-        .connect()
+        .tie()
         .await?;
 
     assert_eq!(client.rope_id(), "living-room_temperature-sensor");
