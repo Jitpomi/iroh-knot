@@ -16,7 +16,7 @@ async fn main() -> anyhow::Result<()> {
     let client = IrohKnotClientJoinBuilder::join(ticket)
         .knot("home-session")
         .rope_id("temperature-sensor")
-        .tie()
+        .connect()
         .await?;
 
     println!("[CLIENT] Tied the knot! Handshake approved. Connection ID: {}", client.connection_id());

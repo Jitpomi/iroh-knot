@@ -15,7 +15,7 @@ async fn main() -> anyhow::Result<()> {
     let client = IrohKnotClientJoinBuilder::join(ticket)
         .knot("home-session")
         .rope_id("living-room-sensor")
-        .tie()
+        .connect()
         .await?;
 
     println!("[CLIENT] Tied the knot! Handshake approved. Waiting for commands over control channel...");
