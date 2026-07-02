@@ -19,7 +19,7 @@ async fn main() -> anyhow::Result<()> {
         .connect()
         .await?;
 
-    println!("[CLIENT] Handshake approved. Connection ID: {}", client.connection_id());
+    println!("[CLIENT] Tied the knot! Handshake approved. Connection ID: {}", client.connection_id());
 
     // 2. Open unidirectional data stream channel
     println!("[CLIENT] Negotiating 'temp_sensor' stream channel...");

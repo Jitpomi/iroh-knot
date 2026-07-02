@@ -18,7 +18,7 @@ async fn main() -> anyhow::Result<()> {
         .connect()
         .await?;
 
-    println!("[CLIENT] Handshake approved. Waiting for commands over control channel...");
+    println!("[CLIENT] Tied the knot! Handshake approved. Waiting for commands over control channel...");
 
     let control_tx = client.control_tx();
 
