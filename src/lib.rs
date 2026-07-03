@@ -228,6 +228,27 @@ impl IrohKnotHubBuilder {
 
         Ok(IrohKnotHub { router })
     }
+
+    pub async fn serve_with_receiver(self, endpoint: Endpoint) -> Result<(IrohKnotHub, UnboundedReceiver<HubEvent>)> {
+        let (tx, rx) = unbounded_channel();
+        let policy = self.join_policy.unwrap_or(JoinPolicy::ApproveAll);
+        let metadata_fn = self.metadata_fn.unwrap_or_else(|| Arc::new(|| "{}".to_string()));
+        let local_id = endpoint.id().to_string();
+        
+        let protocol = KnotProtocol {
+            data_dir: self.data_dir,
+            event_tx: tx,
+            metadata_fn,
+            join_policy: policy,
+            cap_validator: self.cap_validator,
+            local_id,
+        };
+        let router = Router::builder(endpoint)
+            .accept(KNOT_ALPN, Arc::new(protocol))
+            .spawn();
+
+        Ok((IrohKnotHub { router }, rx))
+    }
 }
 
 pub struct IrohKnotHub {

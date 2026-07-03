@@ -81,3 +81,24 @@ async fn main() -> anyhow::Result<()> {
     Ok(())
 }
 ```
+
+### 3. Spawning a Host with Custom Join Policies
+
+For advanced security use cases (such as zero-trust Ed25519 token validation), configure the host using the builder pattern with `IrohKnotHub::new()` and `serve_with_receiver`:
+
+```rust
+use iroh_knot::IrohKnotHub;
+use knot_protocol::JoinPolicy;
+
+let join_policy = JoinPolicy::Custom(Arc::new(|node_id, join_token, capabilities| {
+    // Custom cryptographic token validation logic here
+    Ok(())
+}));
+
+let (hub, mut events) = IrohKnotHub::new()
+    .data_dir(PathBuf::from("./knot_data"))
+    .with_join_policy(join_policy)
+    .metadata_fn(|| "{}".to_string())
+    .serve_with_receiver(endpoint)
+    .await?;
+```
